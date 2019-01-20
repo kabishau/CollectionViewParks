@@ -22,11 +22,6 @@ class MainViewController: UICollectionViewController {
 		navigationItem.leftBarButtonItem = editButtonItem
 	}
 
-	override func didReceiveMemoryWarning() {
-		super.didReceiveMemoryWarning()
-		// Dispose of any resources that can be recreated.
-	}
-
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		if segue.identifier == "DetailSegue" {
 			if let dest = segue.destination as? DetailViewController {
@@ -75,8 +70,19 @@ class MainViewController: UICollectionViewController {
 }
 
 extension MainViewController {
+    
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SectionHeader", for: indexPath) as! SectionHeader
+        view.title = dataSource.titleForSectionAtIndexPath(indexPath)
+        return view
+    }
+    
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return dataSource.numberOfSections
+    }
+    
 	override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		return dataSource.count
+		return dataSource.numberOfParksInSection(section)
 	}
 	
 	override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
