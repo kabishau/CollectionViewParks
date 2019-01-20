@@ -40,7 +40,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="jCR-1y-Yvw">
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="jCR-1y-Yvw" customClass="FlowLayout" customModule="CollectionView" customModuleProvider="target">
                             <size key="itemSize" width="200" height="200"/>
                             <size key="headerReferenceSize" width="50" height="40"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -117,20 +117,40 @@
                             <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="10h-5y-yg7">
-                                    <rect key="frame" x="8" y="10" width="359" height="20"/>
-                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
+                                <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="kOe-j0-KfL">
+                                    <rect key="frame" x="8" y="3" width="359" height="34"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="M0b-jt-3Yj">
+                                            <rect key="frame" x="0.0" y="0.0" width="34" height="34"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="34" id="91d-JN-n8K"/>
+                                                <constraint firstAttribute="width" constant="34" id="NsT-qa-COx"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="10h-5y-yg7">
+                                            <rect key="frame" x="42" y="0.0" width="270" height="34"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Count" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fyz-qm-nle">
+                                            <rect key="frame" x="320" y="0.0" width="39" height="34"/>
+                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </stackView>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
-                                <constraint firstItem="10h-5y-yg7" firstAttribute="leading" secondItem="giQ-2f-VhK" secondAttribute="leading" constant="8" id="1UO-1P-zZe"/>
-                                <constraint firstItem="10h-5y-yg7" firstAttribute="centerY" secondItem="giQ-2f-VhK" secondAttribute="centerY" id="MH1-3s-nWz"/>
-                                <constraint firstAttribute="trailing" secondItem="10h-5y-yg7" secondAttribute="trailing" constant="8" id="ufR-kf-QH3"/>
+                                <constraint firstItem="kOe-j0-KfL" firstAttribute="leading" secondItem="giQ-2f-VhK" secondAttribute="leading" constant="8" id="Dd3-m5-uGg"/>
+                                <constraint firstItem="kOe-j0-KfL" firstAttribute="centerY" secondItem="giQ-2f-VhK" secondAttribute="centerY" id="a5t-xO-5q2"/>
+                                <constraint firstAttribute="trailing" secondItem="kOe-j0-KfL" secondAttribute="trailing" constant="8" id="hQ3-FM-UwW"/>
                             </constraints>
                             <connections>
+                                <outlet property="countLabel" destination="Fyz-qm-nle" id="MN7-Gy-NJh"/>
+                                <outlet property="flagImage" destination="M0b-jt-3Yj" id="dTV-pC-5t4"/>
                                 <outlet property="titleLabel" destination="10h-5y-yg7" id="T8f-YX-2g7"/>
                             </connections>
                         </collectionReusableView>

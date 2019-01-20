@@ -12,6 +12,8 @@ class MainViewController: UICollectionViewController {
 		let width = view.frame.size.width / 3
 		let layout = collectionView?.collectionViewLayout as! UICollectionViewFlowLayout
 		layout.itemSize = CGSize(width:width, height:width)
+        layout.sectionHeadersPinToVisibleBounds = true // sticky header
+        
 		// Refresh control
 		let refresh = UIRefreshControl()
 		refresh.addTarget(self, action: #selector(self.refresh), for: UIControl.Event.valueChanged)
@@ -51,7 +53,9 @@ class MainViewController: UICollectionViewController {
 	}
 	
 	@IBAction func addItem() {
-		let index = dataSource.newRandomPark()
+		let index = dataSource.indexPathForNewRandomPark()
+        let layout = collectionView.collectionViewLayout as! FlowLayout
+        layout.addedItem = index
 		collectionView?.insertItems(at: [index])
 	}
 	
@@ -73,7 +77,10 @@ extension MainViewController {
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SectionHeader", for: indexPath) as! SectionHeader
-        view.title = dataSource.titleForSectionAtIndexPath(indexPath)
+        let section = Section()
+        section.title = dataSource.titleForSectionAtIndexPath(indexPath)
+        section.count = dataSource.numberOfParksInSection(indexPath.section)
+        view.section = section
         return view
     }
     
