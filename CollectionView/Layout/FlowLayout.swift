@@ -3,6 +3,7 @@ import UIKit
 class FlowLayout: UICollectionViewFlowLayout {
     
     var addedItem: IndexPath?
+    var deletedItems: [IndexPath]?
     
     // adding item animation
     override func initialLayoutAttributesForAppearingItem(at itemIndexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
@@ -14,6 +15,17 @@ class FlowLayout: UICollectionViewFlowLayout {
         attributes.alpha = 1.0
         attributes.transform = CGAffineTransform(scaleX: 0.15, y: 0.15)
         attributes.zIndex = 5
+        
+        return attributes
+    }
+    
+    override func finalLayoutAttributesForDisappearingItem(at itemIndexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+        guard let attributes = super.finalLayoutAttributesForDisappearingItem(at: itemIndexPath), let deleted = deletedItems, deleted.contains(itemIndexPath) else {
+            return nil
+        }
+        attributes.alpha = 1.0
+        attributes.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+        attributes.zIndex = -1
         
         return attributes
     }

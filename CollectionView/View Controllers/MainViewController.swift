@@ -22,6 +22,9 @@ class MainViewController: UICollectionViewController {
 		navigationController?.isToolbarHidden = true
 		// Edit
 		navigationItem.leftBarButtonItem = editButtonItem
+        
+        // allowing movements, true is the default value
+        installsStandardGestureForInteractiveMovement = true
 	}
 
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -56,7 +59,11 @@ class MainViewController: UICollectionViewController {
 		let index = dataSource.indexPathForNewRandomPark()
         let layout = collectionView.collectionViewLayout as! FlowLayout
         layout.addedItem = index
-		collectionView?.insertItems(at: [index])
+        UIView.animate(withDuration: 1.0, delay: 0, usingSpringWithDamping: 0.65, initialSpringVelocity: 0.0, options: [], animations: {
+            self.collectionView.insertItems(at: [index])
+        }) { (finished) in
+            layout.addedItem = nil
+        }
 	}
 	
 	@objc func refresh() {
@@ -66,6 +73,8 @@ class MainViewController: UICollectionViewController {
 	
 	@IBAction func deleteSelected() {
 		if let selected = collectionView?.indexPathsForSelectedItems {
+            let layout = collectionView.collectionViewLayout as! FlowLayout
+            layout.deletedItems = selected
 			dataSource.deleteItemsAtIndexPaths(selected)
 			collectionView?.deleteItems(at: selected)
 			navigationController?.isToolbarHidden = true
@@ -115,4 +124,8 @@ extension MainViewController {
 			}
 		}
 	}
+    
+    override func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        dataSource.moveParkAtIndexPath(sourceIndexPath, toIndexPath: destinationIndexPath)
+    }
 }
